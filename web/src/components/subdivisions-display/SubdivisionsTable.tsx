@@ -101,6 +101,7 @@ const SubdivisionTable = ({
                 handleSort={handleSort}
                 id={"nearMapImageDate"}
               />
+              <SortableTableCell text="Subdivision Status" />
             </TableRow>
           </TableHeader>
           {loading ? (
@@ -113,6 +114,7 @@ const SubdivisionTable = ({
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.marketName}</TableCell>
                   <TableCell>{formatDate(item.nearMapImageDate)}</TableCell>
+                  <TableCell>{item.subdivisionStatusCode}</TableCell>
                 </TableRow>
               ))}
             </tbody>

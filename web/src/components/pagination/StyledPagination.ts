@@ -17,7 +17,7 @@ export const PaginationSelect = styled.select`
 export const PaginationButton = styled.button<{ disabled: boolean }>`
   padding: 8px 12px;
   margin: 0 4px;
-  background-color: ${({ disabled }) => (disabled ? "#ccc" : "#007bff")};
+  background-color: ${({ disabled }) => (disabled ? "#ccc" : "#5d3ad8")};
   color: white;
   border: none;
   border-radius: 4px;

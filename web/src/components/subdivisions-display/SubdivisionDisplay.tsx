@@ -4,6 +4,8 @@ import { ISubdivisionAPIData, ISubdivisionFilters } from "./subdivisionsTypes";
 import { AxiosResponse } from "axios";
 import SubdivisionTable from "./SubdivisionsTable";
 import { SubdivisionContainer, SubdivisionHeading } from "./SubdivisionsStyled";
+import SubdivisionFilter from "./SubdivisionFilter";
+
 export const SubdivisionDisplay = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [subdivisionsData, setSubdivisionsData] = useState<ISubdivisionAPIData>(
@@ -31,7 +33,6 @@ export const SubdivisionDisplay = () => {
     axios
       .get("/subdivision", { params: subDivisionFilters })
       .then((response: AxiosResponse<ISubdivisionAPIData>) => {
-        console.log("response is ", response.data);
         setSubdivisionsData(response.data);
         setIsLoading(false);
       })
@@ -49,10 +50,18 @@ export const SubdivisionDisplay = () => {
     setSubDivisionFilters({ ...subDivisionFilters, ...filters });
   };
 
+  const handleStatusFilterChange = (status: string | null) => {
+    setSubDivisionFilters({
+      ...subDivisionFilters,
+      filterByKey: status !== "All" ? "subdivisionStatusCode" : null,
+      filterByValue: status !== "All" ? status : null,
+    });
+  };
+
   return (
     <SubdivisionContainer>
       <SubdivisionHeading>Subdivisions</SubdivisionHeading>
-      <p>Display subdivision data here</p>
+      <SubdivisionFilter onFilterChange={handleStatusFilterChange} />
       <SubdivisionTable
         loading={isLoading}
         subdivisionsData={subdivisionsData}
