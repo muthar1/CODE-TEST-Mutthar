@@ -28,7 +28,7 @@ async function getSubDivisions(req, res) {
     }
 
     subdivisions = utils.paginateData(subdivisions, page, limit);
-
+    res.set("Access-Control-Allow-Origin", "*");
     return utils.sendResponse(res, 200, "Success", subdivisions);
   } catch (err) {
     process.env.NODE_ENV && console.log(err);
