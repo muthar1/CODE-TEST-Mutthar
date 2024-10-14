@@ -31,11 +31,9 @@ const SubdivisionTable = ({
   handleSubdivisionFiltersChange: (filters: ISubdivisionFilters) => void;
   subDivisionFilters: ISubdivisionFilters;
 }) => {
-  const { data, total, hasNextPage, hasPreviousPage, page, totalPages } =
+  const { data, hasNextPage, hasPreviousPage, page, totalPages } =
     subdivisionsData;
 
-  const [currentPage, setCurrentPage] = useState(page);
-  const [pageSize, setPageSize] = useState(10); // Default page size
   const [sortColumn, setSortColumn] = useState<string | null>(null); // Track the column to sort by
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc"); // Track the sorting direction
 
@@ -126,7 +124,7 @@ const SubdivisionTable = ({
         <label htmlFor="pageSize">Page Size: </label>
         <PaginationSelect
           id="pageSize"
-          value={pageSize}
+          value={subDivisionFilters.limit}
           onChange={handlePageSizeChange}
         >
           <option value={10}>10</option>
@@ -140,7 +138,7 @@ const SubdivisionTable = ({
         >
           Previous
         </PaginationButton>
-        <span>{` Page ${currentPage} of ${totalPages} `}</span>
+        <span>{` Page ${subDivisionFilters.page} of ${totalPages} `}</span>
         <PaginationButton onClick={handleNextPage} disabled={!hasNextPage}>
           Next
         </PaginationButton>
