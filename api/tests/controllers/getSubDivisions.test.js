@@ -33,16 +33,24 @@ describe("getSubDivisions", () => {
 
     const mockData = {
       subdivisions: [
-        { id: 26951, code: "001B3", name: "Alexander Park" },
-        { id: 26952, code: "001D7", name: "Searchlight and Airpark" },
+        { id: 26951, code: "001B3", name: "Alexander Park", country: "US" },
+        {
+          id: 26952,
+          code: "001D7",
+          name: "Searchlight and Airpark",
+          country: "CA",
+        },
       ],
     };
 
     fs.readFileSync.mockReturnValue(JSON.stringify(mockData));
 
-    const filteredData = [mockData.subdivisions[0]];
-    const sortedData = [mockData.subdivisions[0]];
-    const paginatedData = [mockData.subdivisions[0]];
+    // Filter data by country
+    const filteredData = mockData.subdivisions.filter(
+      (subdivision) => subdivision.country === "US"
+    );
+    const sortedData = [mockData.subdivisions[0]]; // Expected sorted data
+    const paginatedData = [mockData.subdivisions[0]]; // Expected paginated data
 
     utils.sortArray.mockReturnValue(sortedData);
     utils.paginateData.mockReturnValue(paginatedData);
@@ -82,6 +90,7 @@ describe("getSubDivisions", () => {
     );
   });
 
+  // Uncomment and fix the remaining tests as necessary.
   // test('should return paginated subdivisions with default parameters when no query params are provided', async () => {
 
   // test('should return empty array if filter key or value does not match any data', async () => {
